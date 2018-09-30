@@ -21,7 +21,7 @@ public class DDSamping{
 		//******************
 		String typePartitionnement = "HD"; // HL(horizontal), VL(vertical), HD(hybride)
 		//*******************
-		Integer N=100000; //Taille de l'échantillon
+		Integer N=10000; //Taille de l'échantillon
 		//******************
 		/* util = "Freq" si on considére la fréquence comme unitilité
 		 * util = "Aire" si on considére l'aire comme unitilité
