@@ -21,10 +21,10 @@ public class DDSamping{
 		//******************
 		String typePartitionnement = "HD"; // HL(horizontal), VL(vertical), HD(hybride)
 		//*******************
-		Integer N=100000; //Taille de l'échantillon
+		Integer N=100000; //Taille de l'Ã©chantillon
 		//******************
-		/* util = "freq" si on considére la fréquence comme unitilité
-		 * util = "aire" si on considére l'aire comme unitilité
+		/* util = "Freq" si on considÃ©re la frÃ©quence comme unitilitÃ©
+		 * util = "Aire" si on considÃ©re l'aire comme unitilitÃ©
 		 */
 		String util = "Freq"; // "Freq" ou "Aire"
 		//****************** 
@@ -37,7 +37,7 @@ public class DDSamping{
 		boolean bornee = true;
 		//******************
 		Integer tailleMin=1; //contrainte de taille minimale. 
-							 //Mettez tailleMin=0 si vous désirez tirer l'ensemble vide
+							 //Mettez tailleMin=0 si vous dÃ©sirez tirer l'ensemble vide
 		//******************
 		Integer M=5; //contrainte de taille maximale. Si bornee = false, elle fera plus sens.
 		//******************
@@ -47,12 +47,12 @@ public class DDSamping{
 		//******************
 		Integer nbSites = 10; //Nombre total de sites;
 		//******************
-		String nomBase ="iris"; //nom de la base de données distribuées
+		String nomBase ="iris"; //nom de la base de donnÃ©es distribuÃ©es
 		//*******************
 		//Chargement des bases en local de chaque site
 		Reseau reseau = new Reseau(nomBase, typePartitionnement, nbSitesEnPannes, p, nbSites);
 		//******************
-		//Remplisage de la matrice de pondération
+		//Remplisage de la matrice de pondÃ©ration
 		Hashtable<String, LinkedList<InfoTrans>>  matricePonderation= new Hashtable<String, LinkedList<InfoTrans>>();
 		List<Integer> listIdNoeud=new ArrayList<Integer>();
 		for(int j=1; j<= reseau.getSystem().size(); j++){
@@ -77,7 +77,7 @@ public class DDSamping{
 			listIdNoeud.add(j);
 		}
 		//******************
-		//Pondération des lignes de la matrice
+		//PondÃ©ration des lignes de la matrice
 		Integer[] tabVal = new Integer[matricePonderation.size()];
 		String[] tabKey=new String[matricePonderation.size()];
 		Hashtable<String, Object> crible=new Hashtable<String, Object>();
@@ -99,7 +99,7 @@ public class DDSamping{
 		int sommeTotale = tabVal[tabVal.length-1];
 		//******************
 		int indice;
-		List<Integer> listeIndices; //Liste des sites en pannes après pondération par simulation aléatoire
+		List<Integer> listeIndices; //Liste des sites en pannes aprÃ¨s pondÃ©ration par simulation alÃ©atoire
 		Random rn= new Random();
 		List<Integer> ind = new ArrayList<Integer>();
 		for(int i=0; i< listIdNoeud.size(); i++){
@@ -112,7 +112,7 @@ public class DDSamping{
 			ind.remove(m);
 		}
 		//******************
-		// Tirage d'un échantillon de N motifs
+		// Tirage d'un Ã©chantillon de N motifs
 		Integer nbRejet=0;
 		Hashtable<Integer, String> echantillon = new Hashtable<Integer, String>();
 		for(Integer iter=0; iter<N; ){
@@ -159,7 +159,7 @@ public class DDSamping{
 				nbRejet++;
 		}
 		//******************
-		// Ecriture en sortie des N motifs de l'échantillon
+		// Ecriture en sortie des N motifs de l'Ã©chantillon
 		String borne="";
 		if(bornee)
 			borne="Bornee";
@@ -177,7 +177,7 @@ public class DDSamping{
 		printerAvecBuffer.write(output , 0, output.length());
 		printerAvecBuffer.close();
 		float tauxRejet = (float)nbRejet/(nbRejet+N);
-		System.out.println("Fin du tirage avec un taux de rejet de : "+ ((int)(tauxRejet*100))/100. +"\nVeuillez recupérer votre échantillon dans : \n"+"Samples/"+util+"/"+borne+"/"+reseau.getTypePartitionnement()+"/"+reseau.getNomBase()+"/"+reseau.getNomBase()+N.toString()+"N"+tailleMin.toString()+"m"+M.toString()+"M"+nbSitesEnPannes.toString()+"z"+p.toString().replace(".", "_")+"p.DDS");
+		System.out.println("Fin du tirage avec un taux de rejet de : "+ ((int)(tauxRejet*100))/100. +"\nVeuillez recupÃ©rer votre Ã©chantillon dans : \n"+"Samples/"+util+"/"+borne+"/"+reseau.getTypePartitionnement()+"/"+reseau.getNomBase()+"/"+reseau.getNomBase()+N.toString()+"N"+tailleMin.toString()+"m"+M.toString()+"M"+nbSitesEnPannes.toString()+"z"+p.toString().replace(".", "_")+"p.DDS");
 	}
 
 	//****************** Fonctions secondaires **********************//
@@ -225,10 +225,10 @@ public class DDSamping{
 	}
 	
 	public static List<Integer> sousEnsemble(int [] tabTaille,int norm, Integer m){
-		int x=k_taille(tabTaille)+Math.max(0, m-1); //Par défaut m=1 pour toutes nos xp
+		int x=k_taille(tabTaille)+Math.max(0, m-1); //Par dÃ©faut m=1 pour toutes nos xp
 		List<Integer>  T=new ArrayList<Integer>();
 		int i;
-		int indClass=-1; // indice de la classe, pas pris en compte dans cette implémentation
+		int indClass=-1; // indice de la classe, pas pris en compte dans cette implÃ©mentation
 		for(i=0; i<norm; i++)
 			if (i != indClass) T.add(i);
 		List<Integer>  X=new ArrayList<Integer>();
@@ -265,7 +265,7 @@ public class DDSamping{
 		return som;
 	}
 	
-	//Nombre de sous-ensembles d'un itemset suivant une fonction d'utilité
+	//Nombre de sous-ensembles d'un itemset suivant une fonction d'utilitÃ©
 	public static int[] phi(int tailleItemset, int m, int M, String util, boolean bornee){
 		if(M==0 || tailleItemset==0 || m>M){
 			int[] Tab={0};
@@ -284,7 +284,7 @@ public class DDSamping{
 			for (int i=m, j=0; i<=k; i++, j++)
 				Tab[j]=(int) combinaison(tailleItemset,i);
 		else {
-			System.out.println("Veillez à bien spécifier les paramétres d'entrée s'il vous plaît.");
+			System.out.println("Veillez Ã  bien spÃ©cifier les paramÃ©tres d'entrÃ©e s'il vous plaÃ®t.");
 			System.exit(0);			
 		}
 		return Tab;
