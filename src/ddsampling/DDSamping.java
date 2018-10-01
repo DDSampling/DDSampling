@@ -19,7 +19,7 @@ public class DDSamping{
 	//****************** Fonction principale ********************//
 	public static void main(String[] args) throws IOException {
 		//******************
-		String typePartitionnement = "VL"; // HL(horizontal), VL(vertical), HD(hybride)
+		String typePartitionnement = "HD"; // HL(horizontal), VL(vertical), HD(hybride)
 		//*******************
 		Integer N=10000; //Taille de l'échantillon
 		//******************
