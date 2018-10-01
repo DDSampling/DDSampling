@@ -43,13 +43,13 @@ public class DDSamping{
 		//******************
 		Integer nbSitesEnPannes = 2; // nombre de sites pas disponibles
 		//******************
-		Float p=(float) 0.0; //Probabilite aqu'un noeud ne soit pas accessible
+		Float p=(float) 0.0; //Probabilite qu'un site ne soit pas accessible
 		//******************
 		Integer nbSites = 10; //Nombre total de sites;
 		//******************
 		String nomBase ="chess"; //nom de la base de données distribuées
 		//*******************
-		//Chargement des bases en local de chaque site
+		//Chargement de chaque base au site local associé
 		Reseau reseau = new Reseau(nomBase, typePartitionnement, nbSitesEnPannes, p, nbSites);
 		//******************
 		//Remplisage de la matrice de pondération
