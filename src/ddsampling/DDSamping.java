@@ -19,7 +19,7 @@ public class DDSamping{
 	//****************** Fonction principale ********************//
 	public static void main(String[] args) throws IOException {
 		//******************
-		String typePartitionnement = "HD"; // HL(horizontal), VL(vertical), HD(hybride)
+		String typePartitionnement = "VL"; // HL(horizontal), VL(vertical), HD(hybride)
 		//*******************
 		Integer N=10000; //Taille de l'échantillon
 		//******************
@@ -39,15 +39,15 @@ public class DDSamping{
 		Integer tailleMin=1; //contrainte de taille minimale. 
 							 //Mettez tailleMin=0 si vous désirez tirer l'ensemble vide
 		//******************
-		Integer M=5; //contrainte de taille maximale. Si bornee = false, elle fera plus sens.
+		Integer M=3; //contrainte de taille maximale. Si bornee = false, elle fera plus sens.
 		//******************
-		Integer nbSitesEnPannes = 0; // nombre de sites pas disponibles
+		Integer nbSitesEnPannes = 2; // nombre de sites pas disponibles
 		//******************
 		Float p=(float) 0.0; //Probabilite aqu'un noeud ne soit pas accessible
 		//******************
 		Integer nbSites = 10; //Nombre total de sites;
 		//******************
-		String nomBase ="iris"; //nom de la base de données distribuées
+		String nomBase ="chess"; //nom de la base de données distribuées
 		//*******************
 		//Chargement des bases en local de chaque site
 		Reseau reseau = new Reseau(nomBase, typePartitionnement, nbSitesEnPannes, p, nbSites);
@@ -78,25 +78,24 @@ public class DDSamping{
 		}
 		//******************
 		//Pondération des lignes de la matrice
-		Integer[] tabVal = new Integer[matricePonderation.size()];
+		double[] tabVal = new double[matricePonderation.size()];
 		String[] tabKey=new String[matricePonderation.size()];
 		Hashtable<String, Object> crible=new Hashtable<String, Object>();
 		
 		Enumeration<String> mesKeys = matricePonderation.keys();
 		int norm;
-		int val=0;
+		double val=0;
 		int l=0;
 		while (mesKeys.hasMoreElements()){
 			String currentKey  = mesKeys.nextElement();
 			norm = matricePonderation.get(currentKey).getLast().getSomTaille();
-			int[] cribleS= phi(norm, tailleMin, M, util, bornee);
+			double[] cribleS= phi(norm, tailleMin, M, util, bornee);
 			crible.put(currentKey, cribleS);
 			val+=sum(cribleS);
 			tabVal[l]=val;
 			tabKey[l]= currentKey;
 			l++;
 		}
-		int sommeTotale = tabVal[tabVal.length-1];
 		//******************
 		int indice;
 		List<Integer> listeIndices; //Liste des sites en pannes après pondération par simulation aléatoire
@@ -120,7 +119,7 @@ public class DDSamping{
 			int k=0, j=matricePonderation.size();
 			indice=trouverBis(tabVal, k, j, val1);
 			LinkedList<InfoTrans> currentTrans = matricePonderation.get(tabKey[indice].toString());
-			int[] cribleS = (int[]) crible.get(tabKey[indice]);
+			double[] cribleS = (double[]) crible.get(tabKey[indice]);
 			norm = currentTrans.getLast().getSomTaille();
 			listeIndices = sousEnsemble(cribleS, norm, tailleMin);
 			Integer[] tabIndiceItem = new Integer[listeIndices.size()];
@@ -192,7 +191,7 @@ public class DDSamping{
 		return sb.toString();
 	}
 	
-	public static int trouverBis(Integer[] tabVal, int i, int j, float x){
+	public static int trouverBis(double[] tabVal, int i, int j, float x){
 		int m=(i+j)/2;
 		if(m==0 || (tabVal[m-1]<x && x<=tabVal[m]))
 			return m;
@@ -207,11 +206,11 @@ public class DDSamping{
 		return (rn.nextInt(2)==1);
 	}
 			
-	public static int k_taille(int [] TabTaille){
-		Integer[] tab=new Integer[TabTaille.length];
+	public static int k_taille(double[] cribleS){
+		double[] tab=new double[cribleS.length];
 		int som=0;
-		for(int i=0; i<TabTaille.length; i++){
-			som+=TabTaille[i];
+		for(int i=0; i<cribleS.length; i++){
+			som+=cribleS[i];
 			tab[i]=som;
 		}
 		int i=0, j=tab.length;
@@ -224,8 +223,8 @@ public class DDSamping{
 		return s.toString().replace("[", "").replace("]", "").replace(",",sep);
 	}
 	
-	public static List<Integer> sousEnsemble(int [] tabTaille,int norm, Integer m){
-		int x=k_taille(tabTaille)+Math.max(0, m-1); //Par défaut m=1 pour toutes nos xp
+	public static List<Integer> sousEnsemble(double[] cribleS,int norm, Integer m){
+		int x=k_taille(cribleS)+Math.max(0, m-1); //Par défaut m=1 pour toutes nos xp
 		List<Integer>  T=new ArrayList<Integer>();
 		int i;
 		int indClass=-1; // indice de la classe, pas pris en compte dans cette implémentation
@@ -258,17 +257,17 @@ public class DDSamping{
 	}
 
 	
-	public static int sum(int[] T){
+	public static int sum(double[] cribleS){
 		int som=0,i;
-		for(i=0; i<T.length;i++)
-			som+=T[i];
+		for(i=0; i<cribleS.length;i++)
+			som+=cribleS[i];
 		return som;
 	}
 	
 	//Nombre de sous-ensembles d'un itemset suivant une fonction d'utilité
-	public static int[] phi(int tailleItemset, int m, int M, String util, boolean bornee){
+	public static double[] phi(int tailleItemset, int m, int M, String util, boolean bornee){
 		if(M==0 || tailleItemset==0 || m>M){
-			int[] Tab={0};
+			double[] Tab={0};
 			return Tab;
 		}
 		int k;
@@ -276,7 +275,7 @@ public class DDSamping{
 			k=Math.min(M,tailleItemset);
 		else
 			k=tailleItemset;
-		int[] Tab= new int[k-m+1];
+		double[] Tab= new double[k-m+1];
 		if(util.equals("Aire"))
 			for (int i=m, j=0; i<=k; i++, j++)
 				Tab[j]=(int) combinaison(tailleItemset,i)*i;
