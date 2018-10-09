@@ -140,7 +140,7 @@ public class DDSamping{
 			float alea=(float)Math.random();
 			j=0;
 			while (j<tabIndiceItem.length && ok) {
-				if(listIdVetexNotAvailable.contains(tabIndiceVertex[j]) || alea <p){
+				if(listIdVetexNotAvailable.contains(tabIndiceVertex[j]) || alea <=p){
 					ok=false;
 				}else if(p>0) {
 					alea=(float)Math.random();
