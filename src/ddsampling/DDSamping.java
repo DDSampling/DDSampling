@@ -96,6 +96,7 @@ public class DDSamping{
 			tabKey[l]= currentKey;
 			l++;
 		}
+		double sommeTotale = tabVal[tabVal.length-1];
 		//******************
 		int indice;
 		List<Integer> listeIndices; //Liste des sites en pannes après pondération par simulation aléatoire
