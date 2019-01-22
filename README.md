@@ -1,14 +1,20 @@
-# DDSampling
+# Découverte de motifs à la demande dans une base de données distribuée
 
-De nombreuses applications requièrent un stockage et une manipulation de bases de données distribuées (Özsu et Valduriez, 2011). Le plus souvent, la centralisation des données est impossible à cause de contraintes légales ou techniques. Ainsi, Zhang et Zaki (2006) soulignent
-l’importance d’étendre la découverte de connaissances aux bases de données distribuées. Par exemple, les données du web sémantique sont réparties sur plusieurs triplestores accessibles uniquement via des requêtes SPARQL. Dans ce contexte, les propriétés décrivant une même
-entité (e.g., Paris) sont réparties sur plusieurs sites (e.g., Wikidata ou GeoNames). Cet article vise à extraire directement des motifs au sein de telles bases de données distribuées. 
+**Sammury**
 
-  Peu de travaux de la littérature se sont intéressés à la découverte de motifs dans des bases de données distribuées (Cheung et al., 1996; Otey et al., 2003; Jin et Agrawal, 2006; Kum et al., 2006). Ces propositions se sont focalisées sur une extraction exhaustive des motifs en fusionnant les extractions réalisées localement sur chacun des sites. Malheureusement, le volume de données à transmettre entre les différents sites exige un coût de communication bien supérieur
-à la centralisation des données car les motifs sont nombreux par nature et les multiples extractions génèrent de multiples doublons. De plus, le coût de calcul de ces extractions parallèles est prohibitif même si des techniques d’élagage les diminuent sensiblement en contrepartie de coûts de communication supplémentaires (Zhu et Wu, 2007; Zhu et al., 2011). Afin d’éviter le coût inéluctable d’une extraction exhaustive, nous proposons de fournir des motifs à la demande en bénéficiant de l’échantillonnage de motifs (Al Hasan et Zaki, 2009; Boley et al., 2011). L’utilisateur peut à tout moment obtenir un échantillon de motifs dont le tirage sera proportionnel à leur intérêt. En plus d’être peu coûteux à extraire, ils s’avèrent utiles dans de nombreuses tâches comme la classification (Boley et al., 2011), l’extraction d’outliers (Giacometti et Soulet, 2016) ou l’exploration interactive de données (Giacometti et Soulet, 2017).
+Only few pattern mining methods are dedicated to distributed databases. In fact, the centralization of data is often less expensive than the communication of all mined patterns. To circumvent this difficulty, this paper follows a parsimonious approach by sampling patterns. We propose the algorithm DDSampling that draws a pattern from a distributed database proportionally to its interest. We demonstrate its accuracy and analyze its complexity. Experiments show on several datasets its robustness against the failures of a site or the network.
+****************************************************************************************
 
-Cet article cherche à tirer des motifs ensemblistes proportionnellement à une mesure d’intérêt dans une base de données distribuée en ayant les mêmes garanties que si toutes les données avaient été centralisées. Après avoir formalisé notre problème dans la section 3, nous proposons un algorithme générique appelé DDSAMPLING (Distributed Database Sampling) qui tire aléatoirement un motif au sein d’une base de données distribuée proportionnellement à une mesure d’intérêt (cf la section 4). De manière originale, il autorise une nouvelle classe de
-mesures d’intérêt (comprenant notamment la fréquence, l’aire et la contrainte de taille maximale). A notre connaissance, notre proposition est la première approche d’extraction de motifs qui autorise un partitionnement vertical ou hybride des données. Par ailleurs, nous démontrons l’exactitude de DDSAMPLING et étudions sa complexité. En deuxième lieu, dans la section 5, nous évaluons la qualité de DDSAMPLING face aux défaillances de communication ou aux pannes de certains sites sur différents jeux de données. De manière intéressante, la proportionnalité du tirage est peu altérée.
+**Résumé**
 
+De nombreuses applications s’appuient sur des bases de données distribuées. Pourtant, peu de méthodes de découverte de motifs ont été proposées pour les extraire sans centraliser les données. Il faut dire que cette centralisation est souvent moins coûteuse que la communication des motifs extraits. Pour contourner cette difficulté, cet article adopte une approche parcimonieuse en coûts de communication en fournissant à l’utilisateur des motifs à la demande. Plus précisément, nous proposons l’algorithme DDSAMPLING qui tire un motif dans une base de données distribuée proportionnellement à son intérêt. Nous démontrons son exactitude et analysons sa complexité en temps et en communication soulignant son efficacité. Enfin, une étude expérimentale montre sur plusieurs jeux de données la robustesse de DDSampling face aux défaillances d’un site ou du réseau.
+****************************************************************************************
+
+
+**DDSampling (Distributed Database Sampling)**
+
+![Alt text](https://github.com/DDSampling/DDSampling/blob/master/Dataset%20no%20splited/DDSampling.PNG?raw=true "Title")
+
+**Robustesse de DDSampling**
 
 ![Alt text](https://github.com/DDSampling/DDSampling/blob/master/Dataset%20no%20splited/TRejet1.PNG?raw=true "Title")
