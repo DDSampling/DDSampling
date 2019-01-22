@@ -11,4 +11,4 @@ Cet article cherche à tirer des motifs ensemblistes proportionnellement à une 
 mesures d’intérêt (comprenant notamment la fréquence, l’aire et la contrainte de taille maximale). A notre connaissance, notre proposition est la première approche d’extraction de motifs qui autorise un partitionnement vertical ou hybride des données. Par ailleurs, nous démontrons l’exactitude de DDSAMPLING et étudions sa complexité. En deuxième lieu, dans la section 5, nous évaluons la qualité de DDSAMPLING face aux défaillances de communication ou aux pannes de certains sites sur différents jeux de données. De manière intéressante, la proportionnalité du tirage est peu altérée.
 
 
-![Alt text](relative/path/to/img.jpg?raw=true "Title")
+![Alt text](https://github.com/DDSampling/DDSampling/blob/master/Dataset%20no%20splited/TRejet1.PNG?raw=true "Title")
