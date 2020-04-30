@@ -1,5 +1,7 @@
 # Découverte de motifs à la demande dans une base de données distribuée
 
+**(Pour les données du Web Sémantique, veuillez consulter la page https://github.com/DDSamplingRDF/ddsampling)**
+
 **Summary**
 
 Only few pattern mining methods are dedicated to distributed databases. In fact, the centralization of data is often less expensive than the communication of all mined patterns. To circumvent this difficulty, this paper follows a parsimonious approach by sampling patterns. We propose the algorithm **DDSampling** that draws a pattern from a distributed database proportionally to its interest. We demonstrate its accuracy and analyze its complexity. Experiments show on several datasets its robustness against the failures of a site or the network.
