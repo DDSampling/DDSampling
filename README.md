@@ -1,6 +1,6 @@
 # Découverte de motifs à la demande dans une base de données distribuée
 
-**(Pour les données du Web Sémantique, veuillez consulter la page https://github.com/DDSamplingRDF/ddsampling)**
+**(Pour les données du Web Sémantique, veuillez consulter la page https://github.com/DDSampling/ddsamplingRDF)**
 
 **Summary**
 
